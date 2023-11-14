@@ -31,6 +31,7 @@ ENHANCEMENTS:
 * config: The `import` block `id` field now accepts an expression referencing other values such as resource attributes, as long as the value is a string known at plan time. ([#33618](https://github.com/hashicorp/terraform/issues/33618))
 * telemetry: All checkpoint telemetry was removed ([#151](https://github.com/opentofu/opentofu/pull/151))
 * state: Provider addresses in the statefile referring to registry.terraform.io will be treated as referring to registry.opentofu.org unless the full provider address is specified in the config or `OPENTOFU_STATEFILE_PROVIDER_ADDRESS_TRANSLATION` is set to `0`. ([#773](https://github.com/opentofu/opentofu/pull/773))
+* init: Ensured that the `tofu init` command has consistent spelling of the word `initialization` in its output. ([#855](https://github.com/opentofu/opentofu/pull/855/files))
 
 BUG FIXES:
 
@@ -48,9 +49,9 @@ BUG FIXES:
 * cloud: fixed a bug that would prevent nested symlinks from being dereferenced into the config sent to Cloud ([#686](https://github.com/opentofu/opentofu/issues/686)) 
 * cloud: state snapshots could not be disabled when header x-terraform-snapshot-interval is absent ([#687](https://github.com/opentofu/opentofu/issues/687))
 * Fixed crash during tofu destroy inside module with variable validation ([#817](https://github.com/opentofu/opentofu/issues/817))
-* S3 backend endpoints without proto:// now default to https:// instead of failing ([#821](https://github.com/opentofu/opentofu/issues/821))
-* Most S3 compatible remote state backends should now work without checksum errors / 400s by default ([#821](https://github.com/opentofu/opentofu/issues/821))
-* Logging has been re-added to S3 remote state calls ([#821](https://github.com/opentofu/opentofu/issues/821))
+* Fixed regression where `tofu` was not ignoring GPG signing key expiration by default ([822](https://github.com/opentofu/opentofu/issues/822))
+  - Added experimental env variable to enforce checking of GPG signing key expiration `OPENTOFU_ENFORCE_GPG_EXPIRATION=true`
+  - This is planned to default to `true` in a future release.
 
 S3 BACKEND:
 
@@ -70,6 +71,9 @@ S3 BACKEND:
 * Adds support for the `skip_requesting_account_id` attribute. ([#774](https://github.com/opentofu/opentofu/issues/774))
 * Adds support for the `skip_s3_checksum` argument to allow users to disable checksum on S3 uploads for compatibility with non AWS "S3-compatible" APIs. ([#778](https://github.com/opentofu/opentofu/issues/778))
 * `tofu init`: Fixed subsequent runs for s3 backend ([#820](https://github.com/opentofu/opentofu/issues/820)).
+* S3 backend endpoints without proto:// default to https:// instead of failing ([#821](https://github.com/opentofu/opentofu/issues/821))
+* Most S3 compatible remote state backends should now work without checksum errors / 400s ([#821](https://github.com/opentofu/opentofu/issues/821))
+* Logging has been re-added to S3 remote state calls ([#821](https://github.com/opentofu/opentofu/issues/821))
 
 ## Previous Releases
 
